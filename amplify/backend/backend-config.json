@@ -25,12 +25,35 @@
       "service": "Cognito"
     }
   },
+  "parameters": {
+    "AMPLIFY_storage_amplifyreactgraphql58bd2091_bucketName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "amplifyreactgraphql58bd2091"
+        }
+      ]
+    },
+    "AMPLIFY_storage_amplifyreactgraphql58bd2091_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "amplifyreactgraphql58bd2091"
+        }
+      ]
+    }
+  },
   "storage": {
     "amplifyreactgraphql58bd2091": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3",
       "serviceType": "imported"
+    },
+    "s3329d2a4c": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }

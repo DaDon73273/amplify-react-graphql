@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3329d2a4c",
+  "policyUUID": "329d2a4c",
+  "bucketName": "hulislogs",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

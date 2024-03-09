@@ -56,6 +56,7 @@ async function listObjects(){
             accessLevel: 'private'
         }
       }).result;
+      setFileStatus(true)
       console.log('Succeeded: ', result);
     } catch (error) {
       console.log('Error : ', error);
@@ -80,7 +81,7 @@ async function listObjects(){
         <Heading level={1}>We now have Auth!</Heading>
         
         <div>
-        <input type="file" onChange={(e)=> setFileData(e.target.files[0])}/>
+        <input type="file" accept={[".csv",".docx",".txt"]} onChange={(e)=> setFileData(e.target.files[0])}/>
         </div>
         <div>
           <button onClick={uploadFile}>Upload File</button>
