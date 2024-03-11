@@ -1,17 +1,13 @@
-import logo from "./logo.svg";
 import { useState, useEffect } from "react";
 import "@aws-amplify/ui-react/styles.css";
 import {
   withAuthenticator,
   Button,
   Heading,
-  Image,
   View,
   Card,
-  Input,
 } from "@aws-amplify/ui-react";
 import { uploadData } from 'aws-amplify/storage';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
 import * as React from 'react';
 import { list } from 'aws-amplify/storage';
 
@@ -19,6 +15,28 @@ function App({ signOut }) {
 
   const [fileData, setFileData] = useState();
   const [fileStatus, setFileStatus]=useState(false)
+
+  //added
+  const [objects, setObjects] = useState([]);
+
+  const complexobject = {
+    id:"1223",
+    name:"pfarelo",
+    address:
+    {
+      Street:{
+        name:"Llama"
+      }
+    },
+    Phone:{
+      Contact:{
+        primary:"1203936",
+        secondary:"7228362"
+      }
+    }
+  }
+
+ //console.log(Array.of(objects.items))
 /*
   const uploadfile = async () => {
     const result = await uploadData(fileData.name, fileData,{
@@ -30,17 +48,21 @@ function App({ signOut }) {
 */
 useEffect(() => {
   listObjects();
+
 }, []);
 
 async function listObjects(){
   try {
-    const response = await list({
-      prefix: 'private/eu-west-1:bf5303d5-3c18-c1eb-3ae9-83cd142670e0/',
+    const objectList = await list({
+      //prefix: 'private/eu-west-1:bf5303d5-3c18-c1eb-3ae9-83cd142670e0/',
       options: {
-        listAll: true
+        accessLevel: 'private',
       }
     });
+    setObjects(objectList.items);
+    //console.log(objectList.items);
     // render list items from response.items
+   // e.target.reset();
   } catch (error) {
     console.log('Error ', error);
   }
@@ -48,6 +70,7 @@ async function listObjects(){
 
 
   async function uploadFile(){
+   
     try {
       const result = await uploadData({
         key: fileData.name,
@@ -57,12 +80,13 @@ async function listObjects(){
         }
       }).result;
       setFileStatus(true)
+      //listObjects();
       console.log('Succeeded: ', result);
     } catch (error) {
       console.log('Error : ', error);
     }
   }
-  
+
 
   /*
   const uploadDataInBrowser = async (event) => {
@@ -87,6 +111,12 @@ async function listObjects(){
           <button onClick={uploadFile}>Upload File</button>
         </div>
         {fileStatus ? "File uploaded succcefully" : ""}
+     
+        <div>
+        {Array.prototype.map.call(objects, (x,i) => (
+          <div className="row" key={i}>{x.key}</div>
+        ))}
+      </div>
       </Card>
       <Button onClick={signOut}>Sign Out</Button>
     </View>
